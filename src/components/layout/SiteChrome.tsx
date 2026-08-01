@@ -16,9 +16,9 @@ export function Header() {
           <img
             src="/logo.svg"
             alt=""
-            width={36}
-            height={36}
-            className="h-9 w-9"
+            width={32}
+            height={32}
+            className="h-8 w-8"
           />
           <span className="flex items-baseline gap-2">
             <span className="font-display text-xl font-semibold tracking-tight text-teal-950 sm:text-2xl">

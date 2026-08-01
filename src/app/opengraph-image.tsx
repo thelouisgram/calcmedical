@@ -28,46 +28,16 @@ export default function OpenGraphImage() {
               borderRadius: 20,
               background: "#0B3D38",
               display: "flex",
-              flexDirection: "column",
               alignItems: "center",
               justifyContent: "center",
-              gap: 10,
             }}
           >
-            <div
-              style={{
-                width: 56,
-                height: 24,
-                borderRadius: 7,
-                background: "#F7F7F5",
-              }}
-            />
-            <div style={{ display: "flex", gap: 7 }}>
-              <div
-                style={{
-                  width: 14,
-                  height: 14,
-                  borderRadius: 4,
-                  background: "#F7F7F5",
-                }}
+            <svg width="52" height="52" viewBox="0 0 64 64">
+              <path
+                fill="#F7F7F5"
+                d="M18 34 36 18l14 10v20L36 58V40L18 50Z"
               />
-              <div
-                style={{
-                  width: 14,
-                  height: 14,
-                  borderRadius: 4,
-                  background: "#F7F7F5",
-                }}
-              />
-              <div
-                style={{
-                  width: 14,
-                  height: 14,
-                  borderRadius: 4,
-                  background: "#F7F7F5",
-                }}
-              />
-            </div>
+            </svg>
           </div>
           <div
             style={{

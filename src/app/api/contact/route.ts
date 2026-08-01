@@ -68,8 +68,7 @@ export async function POST(request: Request) {
       );
     }
 
-    const to =
-      process.env.CONTACT_TO_EMAIL || "hadesanoye01@gmail.com";
+    const to = process.env.CONTACT_TO_EMAIL || "hadesanoye01@gmail.com";
     const from = "CalcMedical <onboarding@resend.dev>";
 
     const resend = new Resend(apiKey);

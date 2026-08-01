@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { MobileNav } from "@/components/layout/MobileNav";
 import { siteConfig } from "@/lib/site";
 
 const nav = [
@@ -9,16 +10,16 @@ const nav = [
 
 export function Header() {
   return (
-    <header className="border-b border-slate-200/80 bg-white/90 backdrop-blur">
+    <header className="relative z-50 border-b border-slate-200/80 bg-white/90 backdrop-blur">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
-        <Link href="/" className="group flex items-center gap-2.5">
+        <Link href="/" className="group flex min-w-0 items-center gap-2.5">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/logo.svg"
             alt=""
             width={32}
             height={32}
-            className="h-8 w-8"
+            className="h-8 w-8 shrink-0"
           />
           <span className="flex items-baseline gap-2">
             <span className="font-display text-xl font-semibold tracking-tight text-teal-950 sm:text-2xl">
@@ -29,7 +30,10 @@ export function Header() {
             </span>
           </span>
         </Link>
-        <nav className="flex items-center gap-1 sm:gap-4" aria-label="Primary">
+        <nav
+          className="hidden items-center gap-1 md:flex md:gap-4"
+          aria-label="Primary"
+        >
           {nav.map((item) => (
             <Link
               key={item.href}
@@ -40,6 +44,7 @@ export function Header() {
             </Link>
           ))}
         </nav>
+        <MobileNav />
       </div>
     </header>
   );

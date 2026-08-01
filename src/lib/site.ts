@@ -6,7 +6,7 @@ export const siteConfig = {
     "Free medical and surgical calculators for clinicians: eGFR CKD-EPI, EDD, EGA, GCS, Apgar, Parkland burns, CHA2DS2-VASc, MELD, pediatric weight, and 50+ more. Fast, self-contained, no account required.",
   locale: "en_US",
   twitter: "@calcmedical",
-  adsenseClient: process.env.NEXT_PUBLIC_ADSENSE_CLIENT ?? "",
+  adsenseClient: "ca-pub-8747052850575622",
   keywords: [
     "medical calculator",
     "clinical calculator",

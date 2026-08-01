@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useRef } from "react";
 import { siteConfig } from "@/lib/site";
 
 type AdSlotProps = {
@@ -13,9 +16,15 @@ const heights = {
   vertical: "min-h-[600px]",
 } as const;
 
+declare global {
+  interface Window {
+    adsbygoogle?: Record<string, unknown>[];
+  }
+}
+
 /**
- * CLS-safe AdSense placeholder. Wire NEXT_PUBLIC_ADSENSE_CLIENT + data-ad-slot
- * in production. Reserved min-height prevents layout shift.
+ * CLS-safe AdSense slot.
+ * Pass a real data-ad-slot id from AdSense when you create display units.
  */
 export function AdSlot({
   slot = "0000000000",
@@ -24,6 +33,17 @@ export function AdSlot({
   label = "Advertisement",
 }: AdSlotProps) {
   const client = siteConfig.adsenseClient;
+  const pushed = useRef(false);
+
+  useEffect(() => {
+    if (!client || pushed.current) return;
+    try {
+      (window.adsbygoogle = window.adsbygoogle || []).push({});
+      pushed.current = true;
+    } catch {
+      // AdSense may block locally / before approval
+    }
+  }, [client]);
 
   return (
     <aside
@@ -46,8 +66,7 @@ export function AdSlot({
               {label}
             </p>
             <p className="mt-1 max-w-sm text-xs text-slate-400">
-              Ad slot reserved ({format}). Set NEXT_PUBLIC_ADSENSE_CLIENT to
-              enable Google AdSense.
+              Ad slot reserved ({format}).
             </p>
           </>
         )}

@@ -90,13 +90,11 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${body.variable} ${display.variable} h-full`}>
       <head>
-        {adsClient ? (
-          <script
-            async
-            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsClient}`}
-            crossOrigin="anonymous"
-          />
-        ) : null}
+        <script
+          async
+          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsClient}`}
+          crossOrigin="anonymous"
+        />
       </head>
       <body className="flex min-h-full flex-col antialiased">
         <Header />

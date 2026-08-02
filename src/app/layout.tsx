@@ -30,9 +30,14 @@ export const metadata: Metadata = {
   category: "health",
   keywords: [...siteConfig.keywords],
   icons: {
-    icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
+    icon: [
+      { url: "/favicon.ico", sizes: "48x48" },
+      { url: "/icon-48.png", type: "image/png", sizes: "48x48" },
+      { url: "/icon", type: "image/png", sizes: "48x48" },
+      { url: "/logo.svg", type: "image/svg+xml" },
+    ],
     apple: [{ url: "/apple-icon", sizes: "180x180", type: "image/png" }],
-    shortcut: ["/icon.svg"],
+    shortcut: ["/favicon.ico"],
   },
   manifest: "/manifest.webmanifest",
   openGraph: {

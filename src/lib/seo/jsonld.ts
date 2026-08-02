@@ -97,7 +97,8 @@ export function websiteJsonLd() {
         "@id": `${siteConfig.url}/#organization`,
         name: siteConfig.name,
         url: siteConfig.url,
-        logo: `${siteConfig.url}/logo.svg`,
+        logo: `${siteConfig.url}/icon-48.png`,
+        image: `${siteConfig.url}/logo.svg`,
         description: siteConfig.description,
       },
       {

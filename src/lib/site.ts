@@ -1,7 +1,7 @@
 export const siteConfig = {
-  name: "CalcMedical",
-  shortName: "CalcMedical",
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://calcmedical.com",
+  name: "Calcmedical",
+  shortName: "Calcmedical",
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://calcmedical.fun",
   description:
     "Free medical and surgical calculators for clinicians: eGFR CKD-EPI, EDD, EGA, GCS, Apgar, Parkland burns, CHA2DS2-VASc, MELD, pediatric weight, and 50+ more. Fast, self-contained, no account required.",
   locale: "en_US",

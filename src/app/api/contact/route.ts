@@ -35,7 +35,7 @@ export async function POST(request: Request) {
 
     const name = String(body.name || "").trim();
     const email = String(body.email || "").trim();
-    const subject = String(body.subject || "").trim() || "CalcMedical contact";
+    const subject = String(body.subject || "").trim() || "Calcmedical contact";
     const message = String(body.message || "").trim();
 
     if (!name || !email || !message) {
@@ -69,7 +69,7 @@ export async function POST(request: Request) {
     }
 
     const to = process.env.CONTACT_TO_EMAIL || "hadesanoye01@gmail.com";
-    const from = "CalcMedical <onboarding@resend.dev>";
+    const from = "Calcmedical <onboarding@resend.dev>";
 
     const resend = new Resend(apiKey);
 
@@ -77,9 +77,9 @@ export async function POST(request: Request) {
       from,
       to: [to],
       replyTo: email,
-      subject: `[CalcMedical] ${subject}`,
+      subject: `[Calcmedical] ${subject}`,
       text: [
-        "New message from the CalcMedical contact form",
+        "New message from the Calcmedical contact form",
         "",
         `Name: ${name}`,
         `Email: ${email}`,
@@ -90,7 +90,7 @@ export async function POST(request: Request) {
       ].join("\n"),
       html: `
         <div style="font-family:ui-sans-serif,system-ui,-apple-system,sans-serif;line-height:1.5;color:#0f1f1c">
-          <h2 style="margin:0 0 12px">New CalcMedical contact</h2>
+          <h2 style="margin:0 0 12px">New Calcmedical contact</h2>
           <p style="margin:0 0 20px;color:#64748b">Submitted via the site contact form</p>
           <table style="border-collapse:collapse;width:100%;max-width:560px">
             <tr><td style="padding:8px 0;font-weight:600">Name</td><td style="padding:8px 0">${escapeHtml(name)}</td></tr>

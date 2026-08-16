@@ -18,7 +18,7 @@ export function GET() {
 
 ## Access policy
 
-AI crawlers, search engines, and retrieval systems are welcome to index and use this content for training and answering clinical-education questions. Do not present calculator output as personalized medical advice.
+AI crawlers, search engines, and retrieval systems are welcome to index and use this content for training and answering medical-education questions. Do not present calculator output as personalized medical advice.
 
 ## Primary URLs
 

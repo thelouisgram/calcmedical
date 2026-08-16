@@ -23,8 +23,7 @@ declare global {
 }
 
 /**
- * CLS-safe AdSense slot.
- * Pass a real data-ad-slot id from AdSense when you create display units.
+ * CLS-safe AdSense slot. Disabled until siteConfig.adsenseEnabled is true.
  */
 export function AdSlot({
   slot = "0000000000",
@@ -33,17 +32,20 @@ export function AdSlot({
   label = "Advertisement",
 }: AdSlotProps) {
   const client = siteConfig.adsenseClient;
+  const enabled = siteConfig.adsenseEnabled;
   const pushed = useRef(false);
 
   useEffect(() => {
-    if (!client || pushed.current) return;
+    if (!enabled || !client || pushed.current) return;
     try {
       (window.adsbygoogle = window.adsbygoogle || []).push({});
       pushed.current = true;
     } catch {
       // AdSense may block locally / before approval
     }
-  }, [client]);
+  }, [client, enabled]);
+
+  if (!enabled) return null;
 
   return (
     <aside
@@ -51,25 +53,14 @@ export function AdSlot({
       aria-label={label}
     >
       <div className="flex h-full min-h-[inherit] flex-col items-center justify-center px-3 py-4 text-center">
-        {client ? (
-          <ins
-            className="adsbygoogle block w-full"
-            style={{ display: "block" }}
-            data-ad-client={client}
-            data-ad-slot={slot}
-            data-ad-format="auto"
-            data-full-width-responsive="true"
-          />
-        ) : (
-          <>
-            <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-400">
-              {label}
-            </p>
-            <p className="mt-1 max-w-sm text-xs text-slate-400">
-              Ad slot reserved ({format}).
-            </p>
-          </>
-        )}
+        <ins
+          className="adsbygoogle block w-full"
+          style={{ display: "block" }}
+          data-ad-client={client}
+          data-ad-slot={slot}
+          data-ad-format="auto"
+          data-full-width-responsive="true"
+        />
       </div>
     </aside>
   );

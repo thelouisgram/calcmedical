@@ -6,6 +6,7 @@ const nav = [
   { href: "/calculators", label: "Calculators" },
   { href: "/specialty/emergency-medicine", label: "Specialties" },
   { href: "/favorites", label: "Favorites" },
+  { href: "/about", label: "About" },
 ];
 
 export function Header() {
@@ -26,7 +27,7 @@ export function Header() {
               {siteConfig.name}
             </span>
             <span className="hidden text-xs font-medium uppercase tracking-wider text-slate-500 sm:inline">
-              Clinical calculators
+              Medical calculators
             </span>
           </span>
         </Link>

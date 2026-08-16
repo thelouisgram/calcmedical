@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { AdSlot } from "@/components/ads/AdSlot";
 import { HomeFeaturedSection } from "@/components/HomeFeaturedSection";
 import { calculators } from "@/lib/calculators/registry";
 import { websiteJsonLd } from "@/lib/seo/jsonld";
@@ -41,7 +40,7 @@ export default function HomePage() {
               {siteConfig.name}
             </p>
             <h1 className="mt-4 max-w-xl text-lg leading-relaxed text-slate-700 sm:text-xl">
-              Fast clinical calculators for medicine and surgery — eGFR, EDD,
+              Fast medical calculators for medicine and surgery — eGFR, EDD,
               GCS, Apgar, burns, risk scores, and more. Runs in your browser.
             </h1>
             <div className="mt-8 flex flex-wrap gap-3">
@@ -83,9 +82,52 @@ export default function HomePage() {
         </div>
       </section>
 
-      <div className="mx-auto max-w-6xl px-4 py-6 sm:px-6">
-        <AdSlot format="horizontal" />
-      </div>
+      <section className="border-y border-slate-200 bg-white">
+        <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+          <h2 className="font-display text-2xl font-semibold text-teal-950 sm:text-3xl">
+            Built for real medical workflows
+          </h2>
+          <div className="mt-6 grid gap-8 md:grid-cols-2">
+            <div className="space-y-4 text-sm leading-relaxed text-slate-700">
+              <p>
+                {siteConfig.name} is more than a list of widgets. Each calculator
+                page explains when a score is used, how to interpret the output,
+                what can go wrong, and which references support the equation.
+                That structure helps trainees learn the tool and helps experienced
+                clinicians double-check unit conversions and edge cases quickly.
+              </p>
+              <p>
+                Tools run locally in your browser, so ward Wi‑Fi drops and
+                privacy policies that restrict cloud PHI are less of a barrier.
+                Favorites stay on your device — no account required.
+              </p>
+            </div>
+            <ul className="space-y-3 text-sm text-slate-700">
+              <li className="rounded-md border border-slate-200 bg-slate-50 px-4 py-3">
+                <strong className="text-teal-950">52+ calculators</strong> across
+                medicine, surgery, OB, peds, and critical care
+              </li>
+              <li className="rounded-md border border-slate-200 bg-slate-50 px-4 py-3">
+                <strong className="text-teal-950">Formula + interpretation</strong>{" "}
+                on every page, with limitations and citations
+              </li>
+              <li className="rounded-md border border-slate-200 bg-slate-50 px-4 py-3">
+                <strong className="text-teal-950">Specialty hubs</strong> to browse
+                ED, nephrology, cardiology, and other focused sets
+              </li>
+              <li className="rounded-md border border-slate-200 bg-slate-50 px-4 py-3">
+                <Link href="/about" className="font-medium text-teal-800 underline">
+                  Editorial standards
+                </Link>{" "}
+                and a clear{" "}
+                <Link href="/disclaimer" className="font-medium text-teal-800 underline">
+                  medical disclaimer
+                </Link>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
 
       <HomeFeaturedSection featured={featured} catalog={catalog} />
 
@@ -115,8 +157,7 @@ export default function HomePage() {
       </section>
 
       <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
-        <AdSlot format="rectangle" className="mx-auto max-w-md" />
-        <p className="mx-auto mt-10 max-w-3xl text-center text-xs leading-relaxed text-slate-500">
+        <p className="mx-auto max-w-3xl text-center text-xs leading-relaxed text-slate-500">
           Educational decision-support only. Verify against primary literature
           and local protocols. See the{" "}
           <Link href="/disclaimer" className="underline hover:text-slate-700">

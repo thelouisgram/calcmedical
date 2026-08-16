@@ -3,13 +3,18 @@ export const siteConfig = {
   shortName: "Calcmedical",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://calcmedical.fun",
   description:
-    "Free medical and surgical calculators for clinicians: eGFR CKD-EPI, EDD, EGA, GCS, Apgar, Parkland burns, CHA2DS2-VASc, MELD, pediatric weight, and 50+ more. Fast, self-contained, no account required.",
+    "Free medical and surgical calculators for doctors and nurses: eGFR CKD-EPI, EDD, EGA, GCS, Apgar, Parkland burns, CHA2DS2-VASc, MELD, pediatric weight, and 50+ more. Fast, self-contained, no account required.",
   locale: "en_US",
   twitter: "@calcmedical",
   adsenseClient: "ca-pub-8747052850575622",
+  /** Keep false until AdSense approves the site — empty ad slots hurt review. */
+  adsenseEnabled: false,
+  contactEmail: "hadesanoye01@gmail.com",
+  operatorName: "Calcmedical",
   keywords: [
+    "medical calculators",
     "medical calculator",
-    "clinical calculator",
+    "surgical calculators",
     "surgical calculator",
     "egfr calculator",
     "ckd-epi",

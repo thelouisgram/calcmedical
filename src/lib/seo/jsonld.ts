@@ -97,7 +97,7 @@ export function websiteJsonLd() {
         "@id": `${siteConfig.url}/#organization`,
         name: siteConfig.name,
         url: siteConfig.url,
-        logo: `${siteConfig.url}/icon-48.png`,
+        logo: `${siteConfig.url}/icon-512.png`,
         image: `${siteConfig.url}/logo.svg`,
         description: siteConfig.description,
       },
@@ -110,7 +110,7 @@ export function websiteJsonLd() {
         isPartOf: { "@id": `${siteConfig.url}/#website` },
         about: {
           "@type": "Thing",
-          name: "Clinical medical calculators",
+          name: "Medical calculators",
         },
         audience: {
           "@type": "MedicalAudience",

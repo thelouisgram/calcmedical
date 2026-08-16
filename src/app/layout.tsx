@@ -31,9 +31,9 @@ export const metadata: Metadata = {
   keywords: [...siteConfig.keywords],
   icons: {
     icon: [
-      { url: "/favicon.ico", sizes: "48x48" },
+      { url: "/favicon.ico", sizes: "any" },
       { url: "/icon-48.png", type: "image/png", sizes: "48x48" },
-      { url: "/icon", type: "image/png", sizes: "48x48" },
+      { url: "/icon.svg", type: "image/svg+xml" },
       { url: "/logo.svg", type: "image/svg+xml" },
     ],
     apple: [{ url: "/apple-icon", sizes: "180x180", type: "image/png" }],
@@ -91,15 +91,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const adsClient = siteConfig.adsenseClient;
+  const adsEnabled = siteConfig.adsenseEnabled;
 
   return (
     <html lang="en" className={`${body.variable} ${display.variable} h-full`}>
       <head>
-        <script
-          async
-          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsClient}`}
-          crossOrigin="anonymous"
-        />
+        {adsEnabled ? (
+          <script
+            async
+            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsClient}`}
+            crossOrigin="anonymous"
+          />
+        ) : null}
       </head>
       <body className="flex min-h-full flex-col antialiased">
         <Header />

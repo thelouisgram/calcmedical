@@ -1,6 +1,7 @@
 import { ImageResponse } from "next/og";
+import { brand } from "@/lib/brand";
 
-/** 48×48 PNG — Google Search requires ≥48px raster favicons (SVG often ignored). */
+/** 48×48 PNG — Google Search prefers raster favicons ≥48px. */
 export const size = { width: 48, height: 48 };
 export const contentType = "image/png";
 
@@ -14,15 +15,12 @@ export default function Icon() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          background: "#0B3D38",
-          borderRadius: 10,
+          background: brand.teal,
+          borderRadius: brand.radii.sm,
         }}
       >
-        <svg width="30" height="30" viewBox="0 0 64 64">
-          <path
-            fill="#F7F7F5"
-            d="M18 34 36 18l14 10v20L36 58V40L18 50Z"
-          />
+        <svg width="30" height="30" viewBox={brand.viewBox}>
+          <path fill={brand.mark} d={brand.path} />
         </svg>
       </div>
     ),

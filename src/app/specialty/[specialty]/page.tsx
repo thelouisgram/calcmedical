@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { AdSlot } from "@/components/ads/AdSlot";
 import { CalculatorSearch } from "@/components/search/CalculatorSearch";
 import { getCalculatorsBySpecialty } from "@/lib/calculators/registry";
 import { specialtyJsonLd } from "@/lib/seo/jsonld";
@@ -37,7 +36,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       `${spec.name} calculators`,
       `${spec.name} medical calculator`,
       ...calcs.flatMap((c) => c.keywords).slice(0, 12),
-      "clinical calculator",
+      "medical calculator",
       "medical calculator",
     ],
     alternates: { canonical: url },
@@ -117,11 +116,10 @@ export default async function SpecialtyPage({ params }: Props) {
         <p className="mt-3 text-base leading-relaxed text-slate-600">
           {spec.description}
         </p>
+        <p className="mt-4 text-base leading-relaxed text-slate-700">
+          {spec.overview}
+        </p>
       </header>
-
-      <div className="mt-6">
-        <AdSlot format="horizontal" />
-      </div>
 
       <section className="mt-8" aria-label={`${spec.name} calculator search`}>
         {calcs.length > 0 ? (

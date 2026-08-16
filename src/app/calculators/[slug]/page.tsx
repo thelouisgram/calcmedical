@@ -4,6 +4,11 @@ import { notFound } from "next/navigation";
 import { AdSlot } from "@/components/ads/AdSlot";
 import { FavoriteButton } from "@/components/FavoriteButton";
 import {
+  getClinicalContext,
+  getHowToUseSteps,
+  getSupplementalFaqs,
+} from "@/lib/calculator-editorial";
+import {
   calculators,
   getCalculator,
 } from "@/lib/calculators/registry";
@@ -31,7 +36,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       `${calc.shortName} calculator`,
       calc.title,
       "medical calculator",
-      "clinical calculator",
+      "medical calculator",
     ],
     alternates: { canonical: url },
     openGraph: {
@@ -68,6 +73,9 @@ export default async function CalculatorPage({ params }: Props) {
     .map((s) => getCalculator(s))
     .filter(Boolean);
   const Component = calc.Component;
+  const clinicalContext = getClinicalContext(calc);
+  const howToUse = getHowToUseSteps(calc);
+  const faqs = [...calc.faqs, ...getSupplementalFaqs(calc)];
 
   return (
     <article className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-14">
@@ -97,9 +105,6 @@ export default async function CalculatorPage({ params }: Props) {
           </h1>
           <FavoriteButton slug={calc.slug} title={calc.title} />
         </div>
-        <p className="mt-3 text-base leading-relaxed text-slate-600">
-          {calc.description}
-        </p>
         <div className="mt-3 flex flex-wrap gap-2">
           {calc.specialties.map((s) => {
             const spec = getSpecialty(s);
@@ -116,124 +121,146 @@ export default async function CalculatorPage({ params }: Props) {
         </div>
       </header>
 
-        <div className="mt-6">
-          <AdSlot format="horizontal" />
-        </div>
+      <section className="mt-8 max-w-3xl space-y-4">
+        <h2 className="font-display text-xl font-semibold text-teal-950">
+          Medical context
+        </h2>
+        {clinicalContext.map((paragraph) => (
+          <p
+            key={paragraph.slice(0, 48)}
+            className="text-base leading-relaxed text-slate-700"
+          >
+            {paragraph}
+          </p>
+        ))}
+      </section>
 
-        <section className="mt-8" aria-label="Calculator">
-          <Component />
-        </section>
+      <section className="mt-8 max-w-3xl">
+        <h2 className="font-display text-xl font-semibold text-teal-950">
+          How to use this calculator
+        </h2>
+        <ol className="mt-3 list-decimal space-y-2 pl-5 text-sm leading-relaxed text-slate-700">
+          {howToUse.map((step) => (
+            <li key={step.slice(0, 48)}>{step}</li>
+          ))}
+        </ol>
+      </section>
 
-        <p className="mt-6 rounded-md border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-950">
-          Educational use only. Confirm results with clinical judgment, primary
-          sources, and local protocols. Not a substitute for professional medical
-          advice.{" "}
-          <Link href="/disclaimer" className="font-medium underline">
-            Full disclaimer
-          </Link>
-          .
-        </p>
+      <section className="mt-10" aria-label="Calculator">
+        <h2 className="mb-4 font-display text-xl font-semibold text-teal-950">
+          Calculator
+        </h2>
+        <Component />
+      </section>
 
-        <div className="mt-10 grid gap-10 lg:grid-cols-[1fr_300px]">
-          <div className="space-y-10">
-            <section>
-              <h2 className="font-display text-xl font-semibold text-teal-950">
-                Formula
-              </h2>
-              <p className="mt-2 text-sm leading-relaxed text-slate-700">
-                {calc.formulaSummary}
-              </p>
-            </section>
-            <section>
-              <h2 className="font-display text-xl font-semibold text-teal-950">
-                Interpretation
-              </h2>
-              <p className="mt-2 text-sm leading-relaxed text-slate-700">
-                {calc.interpretation}
-              </p>
-            </section>
-            <section>
-              <h2 className="font-display text-xl font-semibold text-teal-950">
-                Limitations
-              </h2>
-              <p className="mt-2 text-sm leading-relaxed text-slate-700">
-                {calc.limitations}
-              </p>
-            </section>
+      <p className="mt-6 rounded-md border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-950">
+        Educational use only. Confirm results with clinical judgment, primary
+        sources, and local protocols. Not a substitute for professional medical
+        advice.{" "}
+        <Link href="/disclaimer" className="font-medium underline">
+          Full disclaimer
+        </Link>
+        .
+      </p>
 
-            <div>
-              <AdSlot format="rectangle" />
-            </div>
+      <div className="mt-10 grid gap-10 lg:grid-cols-[1fr_300px]">
+        <div className="space-y-10">
+          <section>
+            <h2 className="font-display text-xl font-semibold text-teal-950">
+              Formula
+            </h2>
+            <p className="mt-2 text-sm leading-relaxed text-slate-700">
+              {calc.formulaSummary}
+            </p>
+          </section>
+          <section>
+            <h2 className="font-display text-xl font-semibold text-teal-950">
+              Interpretation
+            </h2>
+            <p className="mt-2 text-sm leading-relaxed text-slate-700">
+              {calc.interpretation}
+            </p>
+          </section>
+          <section>
+            <h2 className="font-display text-xl font-semibold text-teal-950">
+              Limitations
+            </h2>
+            <p className="mt-2 text-sm leading-relaxed text-slate-700">
+              {calc.limitations}
+            </p>
+          </section>
 
-            <section>
-              <h2 className="font-display text-xl font-semibold text-teal-950">
-                Frequently asked questions
-              </h2>
-              <dl className="mt-4 space-y-4">
-                {calc.faqs.map((f) => (
-                  <div
-                    key={f.question}
-                    className="rounded-md border border-slate-200 bg-white p-4"
-                  >
-                    <dt className="font-semibold text-slate-900">{f.question}</dt>
-                    <dd className="mt-2 text-sm leading-relaxed text-slate-600">
-                      {f.answer}
-                    </dd>
-                  </div>
-                ))}
-              </dl>
-            </section>
+          <AdSlot format="rectangle" />
 
-            <section>
-              <h2 className="font-display text-xl font-semibold text-teal-950">
-                References
-              </h2>
-              <ul className="mt-3 list-disc space-y-1 pl-5 text-sm text-slate-700">
-                {calc.references.map((r) => (
-                  <li key={r.label}>
-                    {r.url ? (
-                      <a
-                        href={r.url}
-                        className="text-teal-800 underline-offset-2 hover:underline"
-                        rel="noopener noreferrer"
-                        target="_blank"
-                      >
-                        {r.label}
-                      </a>
-                    ) : (
-                      r.label
-                    )}
-                  </li>
-                ))}
-              </ul>
-            </section>
-          </div>
+          <section>
+            <h2 className="font-display text-xl font-semibold text-teal-950">
+              Frequently asked questions
+            </h2>
+            <dl className="mt-4 space-y-4">
+              {faqs.map((f) => (
+                <div
+                  key={f.question}
+                  className="rounded-md border border-slate-200 bg-white p-4"
+                >
+                  <dt className="font-semibold text-slate-900">{f.question}</dt>
+                  <dd className="mt-2 text-sm leading-relaxed text-slate-600">
+                    {f.answer}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </section>
 
-          <aside className="space-y-6">
-            <AdSlot format="vertical" className="hidden lg:flex" />
-            {related.length > 0 ? (
-              <div className="rounded-lg border border-slate-200 bg-white p-4">
-                <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
-                  Related calculators
-                </h2>
-                <ul className="mt-3 space-y-2">
-                  {related.map((r) =>
-                    r ? (
-                      <li key={r.slug}>
-                        <Link
-                          href={`/calculators/${r.slug}`}
-                          className="text-sm font-medium text-teal-900 hover:underline"
-                        >
-                          {r.shortName}
-                        </Link>
-                      </li>
-                    ) : null,
+          <section>
+            <h2 className="font-display text-xl font-semibold text-teal-950">
+              References
+            </h2>
+            <ul className="mt-3 list-disc space-y-1 pl-5 text-sm text-slate-700">
+              {calc.references.map((r) => (
+                <li key={r.label}>
+                  {r.url ? (
+                    <a
+                      href={r.url}
+                      className="text-teal-800 underline-offset-2 hover:underline"
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
+                      {r.label}
+                    </a>
+                  ) : (
+                    r.label
                   )}
-                </ul>
-              </div>
-            ) : null}
-          </aside>
+                </li>
+              ))}
+            </ul>
+          </section>
         </div>
-      </article>
+
+        <aside className="space-y-6">
+          <AdSlot format="vertical" className="hidden lg:flex" />
+          {related.length > 0 ? (
+            <div className="rounded-lg border border-slate-200 bg-white p-4">
+              <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+                Related calculators
+              </h2>
+              <ul className="mt-3 space-y-2">
+                {related.map((r) =>
+                  r ? (
+                    <li key={r.slug}>
+                      <Link
+                        href={`/calculators/${r.slug}`}
+                        className="text-sm font-medium text-teal-900 hover:underline"
+                      >
+                        {r.shortName}
+                      </Link>
+                    </li>
+                  ) : null,
+                )}
+              </ul>
+            </div>
+          ) : null}
+        </aside>
+      </div>
+    </article>
   );
 }

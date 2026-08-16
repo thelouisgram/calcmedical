@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { AdSlot } from "@/components/ads/AdSlot";
 import { CalculatorSearch } from "@/components/search/CalculatorSearch";
 import { calculators } from "@/lib/calculators/registry";
 import { siteConfig } from "@/lib/site";
@@ -11,7 +10,6 @@ export const metadata: Metadata = {
     "Searchable directory of medical and surgical calculators: eGFR, EDD, GCS, Apgar, Parkland burns, CHA₂DS₂-VASc, MELD, pediatric weight, and more.",
   keywords: [
     "medical calculators",
-    "clinical calculators",
     "surgical calculators",
     "egfr calculator",
     "gcs score",
@@ -63,12 +61,21 @@ export default async function CalculatorsPage({ searchParams }: Props) {
       <h1 className="mt-4 font-display text-3xl font-semibold tracking-tight text-teal-950 sm:text-4xl">
         All calculators
       </h1>
-      <p className="mt-3 max-w-2xl text-slate-600">
-        Instant, self-contained tools across medicine and surgery. Filter by
-        name, keyword, or specialty.
-      </p>
-      <div className="mt-6">
-        <AdSlot format="horizontal" />
+      <div className="mt-4 max-w-3xl space-y-3 text-base leading-relaxed text-slate-700">
+        <p>
+          Browse {items.length} self-contained medical and surgical calculators.
+          Each page includes medical context, the interactive tool, formula
+          details, interpretation guidance, limitations, FAQs, and references.
+        </p>
+        <p>
+          Search by name or keyword, or filter by specialty using the links
+          below the search box. For editorial standards and how we verify
+          formulas, see{" "}
+          <Link href="/about" className="text-teal-800 underline">
+            About {siteConfig.name}
+          </Link>
+          .
+        </p>
       </div>
       <div className="mt-8">
         <CalculatorSearch items={items} initialQuery={q} />
